@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+# wurde auto insert from path('chat/', index),
+from first_django_app.chat.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('chat/', index),
 ]
