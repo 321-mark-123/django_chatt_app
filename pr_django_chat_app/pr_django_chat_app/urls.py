@@ -1,4 +1,4 @@
-"""first_django_app URL Configuration
+"""pr_django_chat_app URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -13,15 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from chat.views import index
 from django.contrib import admin
 from django.urls import path
 
-""" wurde auto insert from path('chat/', index),
-# from first_django_app.chat.views import index #funktioniert nicht
-"""
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('chat/', index),
 ]
