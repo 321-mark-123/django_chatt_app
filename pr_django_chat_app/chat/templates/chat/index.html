@@ -12,6 +12,14 @@
   .page-content {
     padding: 100px 300px;
   }
+
+  .message-div {
+    padding-left: 100px;
+  }
+
+  .color-gray {
+    color: rgba(0, 0, 0, 0.4);
+  }
 </style>
 
 <!-- Always shows a header, even in smaller screens. -->
@@ -19,9 +27,16 @@
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
       <!-- Title -->
+      {% if request.user.is_authenticated %}
       <span class="mdl-layout-title"
         >Welcom,{{ request.user.first_name}} im Chatroom</span
       >
+      {% else %}
+
+      <span class="mdl-layout-title"
+        >Welcome,in the chatroom, pleas log in
+      </span>
+      {% endif %}
       <!-- Add spacer, to align navigation to the right -->
       <div class="mdl-layout-spacer"></div>
       <!-- Navigation. We hide it in small screens. -->
@@ -47,6 +62,7 @@
       <!-- Your content goes here -->
       <!-- Textfield with Floating Label -->
       <!--action = Ziel mathod post request ausführen name Textmessage iwrd gesendet Token wird mitgesendet-->
+
       <form action="/chat/" method="POST">
         {% csrf_token %}
         <div
@@ -58,7 +74,9 @@
             type="text"
             id="sample3"
           />
-          <label class="mdl-textfield__label" for="sample3">Text...</label>
+          <label class="mdl-textfield__label" for="sample3"
+            >Hallo wie gehts</label
+          >
         </div>
         <!-- Accent-colored raised button with ripple -->
         <button
@@ -67,6 +85,21 @@
           send
         </button>
       </form>
+      {% if request.user.is_authenticated %} {% for message in messages %}
+      <div class="message-div">
+        <span class="color-gray">[{{ message.created_at }}] </span> {{
+        message.author.first_name }}:
+        <i> {{ message.text }} </i>
+      </div>
+      {% endfor %}
     </div>
+    {% else %}
+    <h1>nicht eingeloggt</h1>
+    <p>
+      Du bist aktuell nicht einbgeloggt.Bitte logge dich ein. <br />
+      Bitte klick <a href="http:/login/">hier</a>.
+    </p>
+
+    {% endif %}
   </main>
 </div>
